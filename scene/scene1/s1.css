@@ -1,0 +1,316 @@
+/* CHEN'S PLAYGROUND — Scene 1: responsive bubble field / artwork by Jessie Chen */
+:root { color-scheme: light; --paper: #fff; --ink: #131313; --type: "Barlow Condensed", "Arial Narrow", sans-serif; }
+* { box-sizing: border-box; }
+html,body { margin: 0; min-height: 100%; background: var(--paper); }
+body { font-family: var(--type); color: var(--ink); }
+body.modal-open { overflow: hidden; }
+button { font: inherit; }
+button:focus-visible, a:focus-visible { outline: 2px solid var(--ink); outline-offset: 5px; }
+
+/* 01 — Scene frame */
+.scene-one { position: relative; width: 100%; min-height: 100vh; min-height: 100dvh; background: var(--paper); overflow: hidden; animation: arrive .5s ease both; }
+@keyframes arrive { from { opacity: 0; } to { opacity: 1; } }
+.back-link { position: absolute; z-index: 20; top: 2.5%; left: 2.5%; color: var(--ink); opacity: .65; text-decoration: none; font-size: clamp(14px,1.15vw,18px); }
+.back-link:hover { opacity: 1; }
+
+/* 02 — Eight independent circles */
+.bubble-field { position: absolute; inset: 0; }
+.bubble { position: absolute; z-index: 2; left: var(--x); top: var(--y); width: var(--size); aspect-ratio: 1; padding: 0; border: 0; background: transparent; cursor: pointer; transform: translate(-50%,-50%) rotate(var(--rotation,0deg)); transform-origin: center; transition: transform .32s cubic-bezier(.2,.85,.25,1); -webkit-tap-highlight-color: transparent; }
+.bubble:hover, .bubble:focus-visible { z-index: 9; transform: translate(-50%,-50%) rotate(0deg) scale(1.15); }
+.bubble-ring { display: block; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+.bubble-doodle { position: absolute; z-index: 1; top: 49%; left: 50%; width: 55%; height: 64%; object-fit: contain; transform: translate(-50%,-50%); pointer-events: none; }
+.bubble-doodle--narrow { width: 40%; }
+.bubble-caption { position: absolute; top: 103%; left: 50%; width: max-content; max-width: 180px; opacity: 0; transform: translate(-50%,8px); font: italic clamp(12px,1.2vw,17px)/1.2 Georgia,serif; color: #626262; pointer-events: none; transition: opacity .3s ease, transform .3s ease; }
+.bubble:hover .bubble-caption, .bubble:focus-visible .bubble-caption { opacity: 1; transform: translate(-50%,0); }
+
+/* Desktop composition, based on the eight-bubble design. */
+.bubble-1 { --x: 12%; --y: 21%; --size: 19vw; --rotation: -6deg; }
+.bubble-2 { --x: 50%; --y: 25%; --size: 14vw; --rotation: 8deg; }
+.bubble-3 { --x: 86%; --y: 17%; --size: 16vw; --rotation: 5deg; }
+.bubble-4 { --x: 35%; --y: 56%; --size: 14vw; --rotation: -4deg; }
+.bubble-5 { --x: 78%; --y: 52%; --size: 15vw; --rotation: 8deg; }
+.bubble-6 { --x: 15%; --y: 75%; --size: 12.5vw; --rotation: -5deg; }
+.bubble-7 { --x: 56%; --y: 64%; --size: 10.5vw; --rotation: 4deg; }
+.bubble-8 { --x: 63%; --y: 39%; --size: 10vw; --rotation: -4deg; }
+
+/* 03 — Cursor hand and fixed fish */
+.hand-cursor { position: absolute; z-index: 10; top: 83%; left: 42%; width: clamp(120px,13vw,215px); height: auto; transform: translate(-50%,-25%); pointer-events: none; user-select: none; -webkit-user-drag: none; will-change: left,top,transform; }
+.scene-footer { position: absolute; z-index: 6; right: 3%; bottom: 3%; display: flex; flex-direction: column; align-items: center; gap: 12px; pointer-events: none; }
+.scene-footer p { margin: 0; font-size: clamp(20px,1.85vw,34px); white-space: nowrap; }
+.footer-fish { width: clamp(115px,13vw,220px); height: auto; }
+
+/* 04 — Modal: distinct text per bubble, single detail image until replaced */
+.bubble-panel[hidden] { display: none; }
+.bubble-panel { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; padding: 20px; background: rgba(255,255,255,.86); -webkit-backdrop-filter: blur(9px); backdrop-filter: blur(9px); }
+.panel-content { position: relative; display: flex; flex-direction: column; align-items: flex-start; width: min(540px,100%); max-height: min(90vh,90dvh); overflow: auto; padding: clamp(22px,4vw,43px); border: 1px solid #d7d7d7; background: #fff; box-shadow: 0 20px 60px rgba(0,0,0,.05); }
+.panel-close { position: absolute; top: 7px; right: 16px; padding: 0; border: 0; background: transparent; font: 32px Georgia,serif; cursor: pointer; }
+.panel-index, .panel-footnote { font-size: 13px; letter-spacing: .05em; color: #666; }
+#panel-title { font-size: clamp(30px,4vw,54px); font-weight: 400; line-height: 1; margin: 14px 0 5px; }
+#panel-note { font: italic 16px/1.5 Georgia,serif; color: #666; margin: 10px 0 22px; }
+#panel-link { display: block; width: 100%; }
+#panel-image { display: block; width: 100%; max-height: 320px; object-fit: contain; }
+.panel-footnote { margin-top: 12px; }
+
+/* 05 — Tablet: rebalance type and size before switching layout */
+@media (min-width: 681px) and (max-width: 1024px) {
+  .bubble-1 { --size: 20vw; }
+  .bubble-3 { --size: 18vw; }
+  .bubble-4 { --size: 16vw; }
+  .bubble-7 { --size: 13vw; }
+  .hand-cursor { width: clamp(110px,14vw,160px); }
+  .scene-footer { right: 2%; bottom: 2%; }
+  .scene-footer p { font-size: 20px; }
+  .footer-fish { width: 110px; }
+}
+
+/* 06 — Mobile: intentional vertical composition, eight large tap targets */
+@media (max-width: 680px) {
+  .scene-one { min-height: max(1460px,185dvh); }
+  .back-link { top: 20px; left: 18px; font-size: 17px; }
+  .bubble-1 { --x: 27%; --y: 11%; --size: clamp(112px,36vw,150px); }
+  .bubble-2 { --x: 75%; --y: 20%; --size: clamp(108px,33vw,135px); }
+  .bubble-3 { --x: 27%; --y: 30%; --size: clamp(112px,36vw,150px); }
+  .bubble-4 { --x: 74%; --y: 40%; --size: clamp(105px,31vw,132px); }
+  .bubble-5 { --x: 27%; --y: 50%; --size: clamp(112px,36vw,148px); }
+  .bubble-6 { --x: 75%; --y: 60%; --size: clamp(105px,32vw,132px); }
+  .bubble-7 { --x: 30%; --y: 70%; --size: clamp(105px,32vw,130px); }
+  .bubble-8 { --x: 72%; --y: 79%; --size: clamp(105px,30vw,124px); }
+  .bubble:active { z-index: 9; transform: translate(-50%,-50%) scale(1.09); }
+  /* The captions remain discoverable without hover; tap opens full title + note. */
+  .bubble-caption { opacity: .78; transform: translate(-50%,0); font-size: 12px; line-height: 1.25; max-width: 120px; min-width: 105px; white-space: normal; text-align: center; }
+  .hand-cursor { z-index: 1; top: auto; left: 24%; bottom: 40px; width: 90px; transform: translate(-50%,0) rotate(-8deg); opacity: .85; will-change: auto; }
+  .scene-footer { right: 5%; bottom: 20px; gap: 4px; }
+  .scene-footer p { font-size: 17px; }
+  .footer-fish { width: 91px; }
+  .bubble-panel { padding: 12px; }
+  .panel-content { width: 100%; max-height: calc(100dvh - 24px); padding: 24px; }
+  #panel-title { font-size: clamp(34px,9vw,48px); }
+  #panel-image { max-height: 38dvh; }
+}
+
+@media (hover: none) and (min-width: 681px) {
+  .bubble-caption { opacity: .8; transform: translate(-50%,0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene-one { animation: none; }
+  .bubble, .bubble-caption { transition: none; }
+}
+
+/* ========================================
+   SERIES GALLERY
+   ======================================== */
+
+.panel-content {
+  width: min(600px, 100%);
+}
+
+/* Artwork and navigation */
+
+.series-viewer {
+  display: grid;
+  grid-template-columns:
+    42px minmax(0, 1fr) 42px;
+
+  align-items: center;
+  gap: 12px;
+
+  width: 100%;
+  min-height: 280px;
+  margin-top: 16px;
+}
+
+/* Triangle buttons */
+
+.series-arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 42px;
+  height: 48px;
+
+  padding: 0;
+  border: none;
+  background: transparent;
+
+  color: #131313;
+  font-size: 21px;
+
+  cursor: pointer;
+
+  transition:
+    transform .25s ease,
+    opacity .25s ease;
+}
+
+.series-arrow:hover:not(:disabled) {
+  transform: scale(1.25);
+}
+
+.series-arrow:disabled {
+  opacity: .2;
+  cursor: default;
+}
+
+.series-arrow[hidden] {
+  display: none;
+}
+
+/* Artwork */
+
+#panel-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  min-width: 0;
+}
+
+#panel-image {
+  display: block;
+  width: 100%;
+  max-height: min(42vh, 340px);
+  object-fit: contain;
+}
+
+#panel-image.is-changing {
+  animation: artwork-appear .3s ease;
+}
+
+@keyframes artwork-appear {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Counter and footnote */
+
+.series-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+
+  width: 100%;
+  margin-top: 16px;
+}
+
+#series-count {
+  font-size: 14px;
+  color: #777;
+  letter-spacing: .06em;
+}
+
+.series-meta .panel-footnote {
+  margin: 0;
+}
+
+/* MOBILE */
+
+@media (max-width: 680px) {
+  .panel-content {
+    width: 100%;
+    max-height: calc(100dvh - 28px);
+    padding: 24px 18px;
+  }
+
+  .series-viewer {
+    grid-template-columns:
+      34px minmax(0, 1fr) 34px;
+
+    gap: 5px;
+    min-height: 220px;
+  }
+
+  .series-arrow {
+    width: 34px;
+    height: 48px;
+    font-size: 18px;
+  }
+
+  #panel-image {
+    max-height: 36dvh;
+  }
+
+  .series-meta .panel-footnote {
+    font-size: 11px;
+    text-align: right;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .series-arrow {
+    transition: none;
+  }
+
+  #panel-image.is-changing {
+    animation: none;
+  }
+}
+
+/* ==========================================
+   INTERACTIVE FISH
+   ========================================== */
+
+.fish-touch {
+  display: block;
+  padding: 0;
+  border: none;
+  background: transparent;
+
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+.fish-touch:focus-visible {
+  outline: 2px solid #131313;
+  outline-offset: 5px;
+}
+
+.footer-fish {
+  display: block;
+  height: auto;
+
+  transform-origin: 65% 50%;
+
+  user-select: none;
+  -webkit-user-drag: none;
+
+  will-change: transform;
+}
+
+/* ==========================================
+   MOBILE — INTERACTIVE HAND
+   ========================================== */
+
+@media (max-width: 680px) {
+
+  .hand-cursor {
+    position: absolute;
+    z-index: 12;
+
+    width: clamp(90px, 24vw, 130px);
+    height: auto;
+
+    pointer-events: none;
+
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+
+    opacity: 1;
+
+    will-change: left, top, transform;
+  }
+
+}

@@ -1,0 +1,554 @@
+
+/* ==========================================
+   CHEN'S PLAYGROUND
+   SCENE 02 — A LITTLE CHAT
+   ========================================== */
+
+/* 01 — DESIGN TOKENS */
+
+:root {
+  color-scheme: light;
+
+  --paper: #fafaf8;
+  --ink: #171717;
+  --muted: #6b6b67;
+
+  --type: "Barlow Condensed", "Arial Narrow", sans-serif;
+}
+
+/* 02 — RESET */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--paper);
+}
+
+body {
+  color: var(--ink);
+  font-family: var(--type);
+}
+
+a,
+button {
+  font: inherit;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 5px;
+}
+
+/* ==========================================
+   03 — PAGE FRAME
+   ========================================== */
+
+.scene-two {
+  position: relative;
+
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.back-link {
+  position: absolute;
+
+  top: 26px;
+  left: clamp(22px, 3vw, 50px);
+
+  z-index: 5;
+
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.back-link:hover {
+  color: var(--ink);
+}
+
+.site-note {
+  position: absolute;
+
+  top: 29px;
+  right: clamp(22px, 3vw, 50px);
+
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: .1em;
+}
+
+/* ==========================================
+   04 — EDITORIAL LAYOUT
+   ========================================== */
+
+.scene-layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(300px, 370px)
+    minmax(0, 1fr);
+
+  grid-template-rows: auto auto;
+
+  grid-template-areas:
+    "heading chair"
+    "copy chair";
+
+  column-gap: clamp(30px, 4.2vw, 92px);
+
+  align-content: center;
+
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  padding:
+    90px
+    clamp(30px, 4vw, 70px)
+    45px;
+}
+
+/* ==========================================
+   05 — LEFT TEXT
+   ========================================== */
+
+.statement-heading {
+  grid-area: heading;
+  align-self: end;
+}
+
+.statement-copy {
+  grid-area: copy;
+  align-self: start;
+  max-width: 355px;
+}
+
+.scene-label {
+  margin: 0 0 24px;
+
+  color: var(--muted);
+  font-size: 14px;
+  letter-spacing: .14em;
+}
+
+h1 {
+  margin: 0 0 23px;
+
+  font-size: clamp(42px, 3.6vw, 62px);
+  font-weight: 500;
+  line-height: .91;
+  letter-spacing: .005em;
+}
+
+.title-line {
+  display: block;
+  white-space: nowrap;
+}
+
+.full-stop {
+  font-family: Georgia, serif;
+}
+
+/* Opening sentence */
+
+.opening-line {
+  margin: 0 0 20px;
+  max-width: 315px;
+
+  font-size: clamp(20px, 1.65vw, 25px);
+  line-height: 1.25;
+}
+
+/* Main statement */
+
+.statement-copy p {
+  margin: 0 0 17px;
+
+  font-size: clamp(18px, 1.36vw, 22px);
+  line-height: 1.34;
+}
+
+/* Closing invitation */
+
+.statement-copy .closing-line {
+  margin: 24px 0 0;
+
+  color: #52524f;
+
+  font: italic clamp(18px, 1.4vw, 22px)/1.43
+    Georgia, serif;
+}
+
+/* ==========================================
+   06 — ROCKING CHAIR STAGE
+   ========================================== */
+
+.chair-stage {
+  grid-area: chair;
+
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  min-width: 0;
+  min-height: 530px;
+
+  align-self: stretch;
+}
+
+/* Interactive button */
+
+.chair-button {
+  position: relative;
+  z-index: 2;
+
+  display: block;
+
+  width: min(100%, 850px);
+
+  padding: 0;
+  border: 0;
+  background: transparent;
+
+  cursor: pointer;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Original artwork */
+
+.chair-art {
+  display: block;
+
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+
+  transform-origin: 50% 86%;
+
+  user-select: none;
+  -webkit-user-drag: none;
+
+  animation: breathe 6s ease-in-out infinite;
+}
+
+/* Rocking state */
+
+.chair-stage.is-rocking .chair-art {
+  animation: rock-together 2.45s ease-in-out 1 both;
+}
+
+/* Subtle ground shadow */
+
+.chair-ground {
+  position: absolute;
+  z-index: 0;
+
+  left: 14%;
+  right: 14%;
+  bottom: 23%;
+
+  height: 26px;
+  border-radius: 50%;
+
+  background: radial-gradient(
+    ellipse,
+    rgba(22, 22, 22, .075),
+    transparent 72%
+  );
+
+  filter: blur(11px);
+  pointer-events: none;
+}
+
+/* Small editorial note */
+
+.stage-number {
+  position: absolute;
+  z-index: 1;
+
+  right: 3%;
+  top: 4%;
+
+  color: #999993;
+
+  font: italic 13px Georgia, serif;
+}
+
+/* Interaction instruction */
+
+.chair-instruction {
+  position: absolute;
+
+  right: 6%;
+  bottom: 4%;
+
+  margin: 0;
+
+  color: var(--muted);
+
+  font: italic 14px Georgia, serif;
+}
+
+.mobile-instruction {
+  display: none;
+}
+
+/* ==========================================
+   07 — CONVERSATION WHISPERS
+   ========================================== */
+
+.chair-whisper {
+  position: absolute;
+  z-index: 3;
+
+  left: 9%;
+  bottom: 6%;
+
+  max-width: 260px;
+  margin: 0;
+
+  color: #52524f;
+
+  font: italic clamp(15px, 1.15vw, 18px)/1.4
+    Georgia, serif;
+
+  opacity: 0;
+  transform: translateY(8px);
+
+  pointer-events: none;
+
+  transition:
+    opacity .45s ease,
+    transform .45s ease;
+}
+
+.chair-stage.has-interacted .chair-whisper {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================
+   08 — ANIMATIONS
+   ========================================== */
+
+/* Gentle idle motion */
+
+@keyframes breathe {
+  0%, 100% {
+    transform: rotate(0);
+  }
+
+  50% {
+    transform: rotate(.32deg);
+  }
+}
+
+/* Two chairs rocking together */
+
+@keyframes rock-together {
+  0%, 100% {
+    transform: rotate(0) translateY(0);
+  }
+
+  20% {
+    transform: rotate(-2deg) translateY(2px);
+  }
+
+  48% {
+    transform: rotate(2.3deg) translateY(-3px);
+  }
+
+  75% {
+    transform: rotate(-1.25deg) translateY(1px);
+  }
+}
+
+/* ==========================================
+   09 — TABLET
+   ========================================== */
+
+@media (max-width: 920px) {
+
+  .scene-layout {
+    grid-template-columns: 1fr;
+
+    grid-template-areas:
+      "heading"
+      "chair"
+      "copy";
+
+    row-gap: 0;
+
+    padding:
+      95px
+      clamp(24px, 5vw, 55px)
+      52px;
+  }
+
+  .statement-heading,
+  .statement-copy {
+    max-width: 650px;
+  }
+
+  h1 {
+    font-size: clamp(50px, 8vw, 78px);
+  }
+
+  .opening-line {
+    margin-bottom: 0;
+  }
+
+  .chair-stage {
+    width: 100%;
+    min-height: 0;
+    height: min(58vw, 510px);
+
+    margin: 12px 0 30px;
+  }
+
+  .chair-button {
+    width: min(100%, 680px);
+  }
+
+  .chair-ground {
+    bottom: 17%;
+  }
+
+  .chair-whisper {
+    left: 7%;
+    bottom: 6%;
+  }
+
+  .chair-instruction {
+    right: 2%;
+    bottom: 5%;
+  }
+
+  .stage-number {
+    top: 4%;
+  }
+
+  .statement-copy {
+    max-width: 500px;
+  }
+
+  .statement-copy p {
+    font-size: 21px;
+  }
+}
+
+/* ==========================================
+   10 — MOBILE
+   ========================================== */
+
+@media (max-width: 680px) {
+
+  .back-link {
+    top: 18px;
+    left: 20px;
+    font-size: 17px;
+  }
+
+  .site-note {
+    top: 22px;
+    right: 20px;
+    font-size: 10px;
+  }
+
+  .scene-layout {
+    padding: 85px 22px 48px;
+  }
+
+  .scene-label {
+    margin-bottom: 20px;
+    font-size: 12px;
+  }
+
+  h1 {
+    margin-bottom: 17px;
+    font-size: clamp(44px, 11.8vw, 64px);
+  }
+
+  .opening-line {
+    max-width: 285px;
+    font-size: 21px;
+  }
+
+  .chair-stage {
+    height: clamp(240px, 66vw, 390px);
+
+    margin: 14px -6px 30px;
+    width: calc(100% + 12px);
+  }
+
+  .chair-button {
+    width: 100%;
+  }
+
+  .chair-ground {
+    bottom: 20%;
+  }
+
+  .stage-number {
+    right: 6%;
+    font-size: 11px;
+  }
+
+  .chair-whisper {
+    left: 5%;
+    bottom: 1%;
+    max-width: 200px;
+    font-size: 14px;
+  }
+
+  .chair-instruction {
+    right: 2%;
+    bottom: 1%;
+    font-size: 12px;
+  }
+
+  .desktop-instruction {
+    display: none;
+  }
+
+  .mobile-instruction {
+    display: inline;
+  }
+
+  .statement-copy p {
+    margin-bottom: 15px;
+    font-size: 20px;
+  }
+
+  .statement-copy .closing-line {
+    margin-top: 23px;
+    font-size: 18px;
+  }
+}
+
+/* ==========================================
+   11 — REDUCED MOTION
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .chair-art,
+  .chair-stage.is-rocking .chair-art {
+    animation: none;
+  }
+
+  .chair-whisper {
+    transition: none;
+  }
+}

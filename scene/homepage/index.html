@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Jessie Chen's Playground — a little space for curious things.">
+  <title>CHEN'S PLAYGROUND — Jessie Chen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./homepage.css">
+  <script src="../../playground.js" defer></script>
+</head>
+<body>
+  <main class="playground">
+    <header class="site-header"><span class="artist-name">Jessie Chen</span></header>
+
+    <section id="scene-one" class="scene-one" aria-label="Welcome to the playground">
+      <h1 class="visually-hidden">Chen's Playground</h1>
+      <p class="welcome">Welcome to the playground</p>
+
+      <img class="slide-sketch" src="../../drawing/1.png"
+        alt="Jessie's hand-drawn playground slide" draggable="false">
+
+      <!-- Follows cursor on desktop; intentionally hidden on mobile. -->
+      <img id="fish" class="fish-doodle" src="../../drawing/fish.png"
+        alt="" aria-hidden="true" draggable="false">
+
+      <!-- One accessible button for both layouts. Mobile fish belongs to this button. -->
+      <button id="enter-button" class="enter-button" type="button"
+        aria-label="Enter the playground; on mobile, save the drowning fish">
+        <span class="pond-prompt" aria-hidden="true">click to save the drowning fish</span>
+        <img class="desktop-enter-art" src="../../drawing/circle1.png" alt="" draggable="false">
+        <img class="mobile-pond-art" src="../../drawing/pond.png" alt="" draggable="false">
+        <img class="pond-fish" src="../../drawing/fish.png" alt="" draggable="false">
+        <span class="enter-label" aria-hidden="true">ENTER</span>
+      </button>
+    </section>
+  </main>
+</body>
+</html>

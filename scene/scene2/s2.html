@@ -1,0 +1,152 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fafaf8">
+
+  <meta
+    name="description"
+    content="A Little Chat — a quiet place for conversation in Chen's Playground."
+  >
+
+  <title>A Little Chat — Chen's Playground</title>
+
+  <!-- FONT -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="s2.css">
+
+  <!-- JAVASCRIPT -->
+  <script src="s2.js" defer></script>
+</head>
+
+<body>
+  <main class="scene-two" id="scene-two">
+
+    <!-- BACK -->
+    <a class="back-link" href="../scene1/s1.html">
+      ← back
+    </a>
+
+    <span class="site-note">
+      JESSIE CHEN / CHEN'S PLAYGROUND
+    </span>
+
+    <div class="scene-layout">
+
+      <!-- LEFT: HEADING -->
+      <header class="statement-heading">
+
+        <p class="scene-label">
+          02 / A LITTLE CHAT
+        </p>
+
+        <h1>
+          <span class="title-line">
+            STAY A LITTLE
+          </span>
+
+          <span class="title-line">
+            LONGER<span class="full-stop">.</span>
+          </span>
+        </h1>
+
+        <p class="opening-line">
+          Some of my favorite moments are the quiet ones.
+        </p>
+
+      </header>
+
+      <!-- LEFT: PROJECT STATEMENT -->
+      <div class="statement-copy">
+
+        <p>
+          Two people sitting together, rocking back and forth.
+          One story leads to another; sometimes nobody says
+          anything at all.
+        </p>
+
+        <p>
+          I imagined these rocking chairs as a little place
+          for conversations with no agenda — silly thoughts,
+          half-finished stories, and the kind of silence
+          that feels comfortable.
+        </p>
+
+        <p>
+          Nothing to rush. Nowhere else to be.
+        </p>
+
+        <p class="closing-line">
+          Just take a seat, and stay for a while.
+        </p>
+
+      </div>
+
+      <!-- RIGHT: INTERACTIVE ROCKING CHAIRS -->
+      <section
+        class="chair-stage"
+        id="chair-stage"
+        aria-label="Interactive hand-drawn rocking chairs"
+      >
+
+        <span class="stage-number" aria-hidden="true">
+          a place for two / no. 02
+        </span>
+
+        <!-- SUBTLE GROUND SHADOW -->
+        <div class="chair-ground" aria-hidden="true"></div>
+
+        <!-- INTERACTIVE CHAIR -->
+        <button
+          class="chair-button"
+          id="chair-button"
+          type="button"
+          aria-label="Rock the chairs to discover a little conversation"
+          aria-describedby="chair-instruction"
+        >
+
+          <img
+            class="chair-art"
+            src="../../drawing/6.png"
+            alt="Two hand-drawn rocking chairs leaning toward one another"
+            draggable="false"
+          >
+
+        </button>
+
+        <!-- INSTRUCTION -->
+        <p
+          class="chair-instruction"
+          id="chair-instruction"
+        >
+          <span class="desktop-instruction">
+            hover or tap the chairs ↗
+          </span>
+
+          <span class="mobile-instruction">
+            tap the chairs ↗
+          </span>
+        </p>
+
+        <!-- SECRET CONVERSATION -->
+        <p
+          class="chair-whisper"
+          id="chair-whisper"
+          aria-live="polite"
+        >
+          psst... there's room for you, too.
+        </p>
+
+      </section>
+
+    </div>
+  </main>
+</body>
+</html>
