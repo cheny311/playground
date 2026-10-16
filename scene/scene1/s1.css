@@ -314,3 +314,17 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--ink); outline-o
   }
 
 }
+/* Allow bubbles to receive taps */
+#hand-cursor {
+  pointer-events: none;
+}
+
+.bubble {
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+/* Gallery visibility */
+#bubble-panel[hidden] {
+  display: none !important;
+}

@@ -362,15 +362,8 @@ requestAnimationFrame(moveHand);
     );
   }
 
-  // Desktop: mouse touches fish
-  fishButton.addEventListener('pointerenter', (event) => {
-    if (event.pointerType === 'mouse') {
-      wiggleFish();
-    }
-  });
-
-  // Mobile: tap fish
-  // Also supports mouse clicks and keyboard activation
   fishButton.addEventListener('click', wiggleFish);
 
-})();
+})(); // Close Interactive Fish
+
+})(); // Close Scene 1
